@@ -9,7 +9,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 buildscript {
     ext {
-        springBootVersion = '2.0.0.RELEASE'
+        springBootVersion = '2.0.1.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -33,6 +33,7 @@ repositories {
 ext {
     redisVersion = '0.6'
     jUnit5Version = '5.1.0'
+    springCloudVersion = 'Finchley.M9'
 }
 
 dependencies {
@@ -41,6 +42,9 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
 
     compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.security:spring-security-oauth2-client")
+    compile("org.springframework.security:spring-security-oauth2-jose")
+
     compile("org.springframework.security:spring-security-messaging")
     compile("org.springframework.session:spring-session-data-redis")
     
