@@ -33,7 +33,6 @@ repositories {
 ext {
     redisVersion = '0.6'
     jUnit5Version = '5.1.0'
-    springCloudVersion = 'Finchley.M9'
 }
 
 dependencies {
