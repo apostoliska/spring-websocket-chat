@@ -45,7 +45,11 @@ dependencies {
     compile("org.springframework.security:spring-security-oauth2-jose")
 
     compile("org.springframework.security:spring-security-messaging")
-    compile("org.springframework.session:spring-session-data-redis")
+    compile("org.springframework.session:spring-session-data-redis"){
+		// workaround for NoSuchFieldError: dataReader
+		exclude group: 'com.jayway.jsonpath', module: 'json-path'
+	}
+	compile("com.jayway.jsonpath:json-path:2.3.0")
     
     compile("com.github.kstyrc:embedded-redis:$redisVersion")
     compile("redis.clients:jedis")

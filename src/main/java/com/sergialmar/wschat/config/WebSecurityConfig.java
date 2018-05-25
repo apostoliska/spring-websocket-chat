@@ -3,6 +3,7 @@ package com.sergialmar.wschat.config;
 import com.sergialmar.wschat.keycloak.KeycloakLogoutHandler;
 import com.sergialmar.wschat.keycloak.KeycloakOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private KeycloakOauth2UserService keycloakOauth2UserService;
 
+    @Value("${kc.realm}")
+    String realm;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -39,7 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/websocket.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()").hasRole("ADMIN")
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ADMIN")
                 .anyRequest().authenticated().and()
-                .oauth2Login().userInfoEndpoint().oidcUserService(keycloakOauth2UserService).and().loginPage(DEFAULT_AUTHORIZATION_REQUEST_BASE_URI + "/chatcity").and()
+                .oauth2Login().userInfoEndpoint().oidcUserService(keycloakOauth2UserService).and() //
+                .loginPage(DEFAULT_AUTHORIZATION_REQUEST_BASE_URI + "/" + realm).and()
                 .logout().addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/index.html").and();
 
     }
